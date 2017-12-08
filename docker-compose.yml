@@ -9,4 +9,7 @@ services:
     build: ./api
     ports:
       - 3000:3000
+    environment:
+      - http_proxy=http_proxy
+      - https_proxy=https_proxy
 

@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"github.com/blueshirts/madziki/api/logger"
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
@@ -10,6 +11,10 @@ func handler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+
+	port := 3000
+	logger.Info("main", "main", fmt.Sprintf("Starting server on port: %d", port))
+
 	http.HandleFunc("/", handler)
-	http.ListenAndServe(":3000", nil)
+	http.ListenAndServe(fmt.Sprintf(":%d", port), nil)
 }

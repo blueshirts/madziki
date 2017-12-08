@@ -1,0 +1,17 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"path": "cleear",
+			"revision": ""
+		},
+		{
+			"checksumSHA1": "xI6xEy3v7kDkYIvdazaQ5MqX7bI=",
+			"path": "github.com/goinggo/tracelog",
+			"revision": "5a27b49b2201ce974306101fce4d271b1e840e02",
+			"revisionTime": "2015-09-23T12:54:15Z"
+		}
+	],
+	"rootPath": "github.com/blueshirts/madziki"
+}
