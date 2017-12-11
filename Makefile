@@ -14,14 +14,23 @@ daemon:
 up-api:
 	docker-compose up api
 
-shell-api:
+shell:
 	docker-compose exec api /bin/bash
+
+shell-db:
+	docker-compose exec db /bin/bash
+
+mongo:
+	docker-compose exec db mongo madziki
 
 tail-api:
 	docker-compose exec api influx
 
-test-api:
-	docker-compose exec api /bin/sh -c go test
+test:
+	docker-compose exec api /bin/sh -c "go test -cover ./..."
+
+testv:
+	docker-compose exec api /bin/sh -c "go test -v -cover ./..."
 
 cleanup:
 	docker rm -v $$(docker ps --filter status=exited -q 2>/dev/null) 2>/dev/null

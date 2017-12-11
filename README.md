@@ -2,9 +2,11 @@
 ## ToDo
 
 REST API
-- Create, update, and delete and movement.
+ - Create, update, and delete and movement.
 - Create, update, and delete a system.
+- Find Systems by User
 - Create, update, and delete a user.
+- Look into mgo transactional settings.
 
 Application
 - List view

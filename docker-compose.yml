@@ -6,10 +6,16 @@ services:
     build: ./db
 
   api:
-    build: ./api
+    build: .
     ports:
       - 3000:3000
-    environment:
-      - http_proxy=http_proxy
-      - https_proxy=https_proxy
+#    environment:
+#      - http_proxy=http_proxy
+#      - https_proxy=https_proxy
+    depends_on:
+      - db
+    volumes:
+      - ./main.go:/usr/src/github.com/blueshirts/madziki/main.go
+      - ./api/:/go/src/github.com/blueshirts/madziki/api/
+      - ./handlers:/go/src/github.com/blueshirts/madziki/handlers
 

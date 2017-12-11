@@ -1,6 +1,6 @@
 
 # Transient files.
-./app/node_modules
+./app/node_modules/
 
 # Project files.
 .idea
