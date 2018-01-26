@@ -1,12 +1,21 @@
 
 ## ToDo
 
+Data
+- Create a default data set including a user, system, and movements.
+-- Notes: Don't need transitions because they are part of a system.
+
+Security
+- Lock down the api's so they can only updated by the owner.
+-- Movements
+ 
 REST API
- - Create, update, and delete and movement.
+ x - Create, update, and delete and movement.
 - Create, update, and delete a system.
 - Find Systems by User
 - Create, update, and delete a user.
 - Look into mgo transactional settings.
+- Add created and last updated to the system and movements table.
 
 Application
 - List view
@@ -18,6 +27,9 @@ Application
 - Delete an existing transition.
 - Authentication
 - Authorization
+
+Common
+- Add a 500 error middleware handler.
 
 Database
 - Backups
@@ -50,14 +62,14 @@ Database
 ``` json
 {
   "name": "",
-    "description": "",
-    "transitions": [
-    {
-      "name": "",
-      "parent": "",
-      "child": ""
-    }
-    ]
+  "description": "",
+  "transitions": [
+  {
+    "name": "",
+    "parent": "",
+    "child": ""
+  }
+  ]
 }
 ```
 

@@ -75,8 +75,8 @@ func TestPostMovementHandler_NoName(t *testing.T) {
 	json.NewEncoder(b).Encode(movement)
 
 	res, err := http.Post(url, "application/json; charset=utf-8", b)
-	if res.StatusCode != http.StatusInternalServerError {
-		t.Fatalf("expected status code to be 500: %d", res.StatusCode)
+	if res.StatusCode != http.StatusBadRequest {
+		t.Fatalf("expected status code to be 400: %d", res.StatusCode)
 	}
 	if err != nil {
 		t.Fatal(err)
@@ -97,20 +97,66 @@ func TestGetMovementHandler(t *testing.T) {
 	var m api.Movement
 	err = readMovement(r.Body, &m)
 
-	defer deleteMovement(t)
-
 	if err != nil {
 		t.Fatal(err)
 	}
 	log.Debug(m)
 }
 
-func deleteMovement(t *testing.T) {
-	if ID.Hex() != "" {
-		t.Logf("deleting movement with id: %s", ID.Hex())
-		err := api.DeleteMovement(ID)
-		if err != nil {
-			t.Fatalf("error while deleting movement: %s", err.Error())
-		}
+func TestPutMovementHandler(t *testing.T) {
+	var m api.Movement
+	err := api.GetMovement(ID.Hex(), &m)
+	if err != nil {
+		t.Fatal(err)
+	}
+	m.Name = "AnUpdatedName"
+
+	b := new(bytes.Buffer)
+	json.NewEncoder(b).Encode(m)
+
+	client := &http.Client{}
+	req, err := http.NewRequest(http.MethodPut, url, b)
+	res, err := client.Do(req)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if res.StatusCode != http.StatusOK {
+		t.Fatalf("expected status code to be 200: %d", res.StatusCode)
+	}
+}
+
+func TestGetMovementsListHandler(t *testing.T) {
+	res, err := http.Get(url)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if res.StatusCode != http.StatusOK {
+		t.Fatalf("expected status code to be 200 but got: %d", res.StatusCode)
+	}
+	var result movementListResult
+	err = readData(res.Body, &result)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(result.Results) != 1 {
+		t.Fatalf("Expected 1 movement in the result list but found: %s", len(result.Results))
+	}
+	t.Log("Retrieved the following movements", result)
+}
+
+func TestDeleteMovementHandler(t *testing.T) {
+	deleteUrl := fmt.Sprintf("%s/%s", url, ID.Hex())
+	client := &http.Client{}
+	req, err := http.NewRequest(http.MethodDelete, deleteUrl, nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+	res, err := client.Do(req)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if res.StatusCode != http.StatusOK {
+		t.Fatalf("expected status code 200 but got: %d", res.StatusCode)
 	}
 }

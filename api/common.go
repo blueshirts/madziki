@@ -4,6 +4,9 @@ import (
 	"gopkg.in/mgo.v2"
 	"time"
 	log "github.com/sirupsen/logrus"
+	"gopkg.in/mgo.v2/bson"
+	"fmt"
+	"errors"
 )
 
 const database = "madziki"
@@ -48,4 +51,14 @@ func init() {
 // GetSession returns the current Mongo session.
 func getSession() *mgo.Session {
 	return session.Copy()
+}
+
+// getObjectId populates the object id pointer or returns an error.
+func getObjectId(hex string, id *bson.ObjectId) (error){
+	if bson.IsObjectIdHex(hex) {
+		*id = bson.ObjectIdHex(hex)
+		return nil
+	} else {
+		return errors.New(fmt.Sprintf("invalid hex format for hex value: %s", hex))
+	}
 }

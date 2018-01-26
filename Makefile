@@ -1,4 +1,8 @@
 
+COLOR=" | sed ''/ok/s//$$(printf "\033[32mok\033[0m")/'' | \
+          sed ''/PASS/s//$$(printf "\033[32mPASS\033[0m")/'' | \
+          sed ''/FAIL/s//$$(printf "\033[31mFAIL\033[0m")/''"
+
 build:
 	docker-compose build
 
@@ -23,19 +27,20 @@ shell-db:
 mongo:
 	docker-compose exec db mongo madziki
 
-tail-api:
-	docker-compose exec api influx
-
 test:
-	docker-compose exec api /bin/sh -c "go test -cover ./..."
+	docker-compose exec api /bin/sh -c "go test -cover ./... ${COLOR}"
 
 testv:
-	docker-compose exec api /bin/sh -c "go test -v -cover ./..."
+	docker-compose exec api /bin/sh -c "go test -v -cover ./... ${COLOR}"
 
+# app targets
+app
 cleanup:
 	docker rm -v $$(docker ps --filter status=exited -q 2>/dev/null) 2>/dev/null
 	docker rmi $$(docker images --filter dangling=true -q 2>/dev/null) 2>/dev/null
 	docker volume rm $$(docker volume ls -qf dangling=true)
 
 .PHONY: build up daemon down cleanup \
-	up-api shell-api tail-api test-api
+	up-api shell shell-db shell-api mongo tail-api \
+	test testv \
+	app

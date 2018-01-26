@@ -4,6 +4,26 @@
 	"GodepVersion": "v79",
 	"Deps": [
 		{
+			"ImportPath": "github.com/go-playground/locales",
+			"Comment": "v0.11.2",
+			"Rev": "e4cbcb5d0652150d40ad0646651076b6bd2be4f6"
+		},
+		{
+			"ImportPath": "github.com/go-playground/locales/currency",
+			"Comment": "v0.11.2",
+			"Rev": "e4cbcb5d0652150d40ad0646651076b6bd2be4f6"
+		},
+		{
+			"ImportPath": "github.com/go-playground/universal-translator",
+			"Comment": "v0.16.0-1-g7120149",
+			"Rev": "71201497bace774495daed26a3874fd339e0b538"
+		},
+		{
+			"ImportPath": "github.com/gorilla/handlers",
+			"Comment": "v1.3.0",
+			"Rev": "90663712d74cb411cbef281bc1e08c19d1a76145"
+		},
+		{
 			"ImportPath": "github.com/gorilla/mux",
 			"Comment": "v1.6.0-6-g5ab525f",
 			"Rev": "5ab525f4fb1678e197ae59401e9050fa0b6cb5fd"
@@ -24,6 +44,11 @@
 		{
 			"ImportPath": "golang.org/x/sys/windows",
 			"Rev": "b8f5ef32195cae6470b728e8ca677f0dbed1a004"
+		},
+		{
+			"ImportPath": "gopkg.in/go-playground/validator.v9",
+			"Comment": "v9.9.0",
+			"Rev": "61caf9d3038e1af346dbf5c2e16f6678e1548364"
 		},
 		{
 			"ImportPath": "gopkg.in/mgo.v2",

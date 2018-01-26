@@ -6,6 +6,7 @@ services:
     build: ./db
 
   api:
+    tty: true
     build: .
     ports:
       - 3000:3000
@@ -18,4 +19,6 @@ services:
       - ./main.go:/usr/src/github.com/blueshirts/madziki/main.go
       - ./api/:/go/src/github.com/blueshirts/madziki/api/
       - ./handlers:/go/src/github.com/blueshirts/madziki/handlers
+#    environment:
+#      - TERM=xterm-256color
 
